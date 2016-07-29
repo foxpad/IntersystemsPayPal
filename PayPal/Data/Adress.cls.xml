@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Adress">
+<Super>%Persistent</Super>
+<TimeCreated>64127,70184.769832</TimeCreated>
+
+<Property name="Line1">
+<Type>%String</Type>
+</Property>
+
+<Property name="City">
+<Type>%String</Type>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+</Property>
+
+<Property name="PostalCode">
+<Type>%String</Type>
+</Property>
+
+<Property name="CountryCode">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.AdressD</DataLocation>
+<DefaultData>AdressDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.AdressD</IdLocation>
+<IndexLocation>^PayPal.Data.AdressI</IndexLocation>
+<StreamLocation>^PayPal.Data.AdressS</StreamLocation>
+<Data name="AdressDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Line1</Value>
+</Value>
+<Value name="3">
+<Value>City</Value>
+</Value>
+<Value name="4">
+<Value>State</Value>
+</Value>
+<Value name="5">
+<Value>PostalCode</Value>
+</Value>
+<Value name="6">
+<Value>CountryCode</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

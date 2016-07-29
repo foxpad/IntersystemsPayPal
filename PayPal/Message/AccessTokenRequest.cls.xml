@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Message.AccessTokenRequest">
+<Super>Ens.Request</Super>
+<TimeCreated>64127,69293.913044</TimeCreated>
+
+<Property name="Token">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>AccessTokenRequestDefaultData</DefaultData>
+<Data name="AccessTokenRequestDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"AccessTokenRequest"</Subscript>
+<Value name="1">
+<Value>Token</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

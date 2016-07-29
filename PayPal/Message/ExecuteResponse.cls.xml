@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Message.ExecuteResponse">
+<Super>Ens.Response</Super>
+<TimeCreated>64128,5448.56152</TimeCreated>
+
+<Property name="Id">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>ExecuteResponseDefaultData</DefaultData>
+<Data name="ExecuteResponseDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"ExecuteResponse"</Subscript>
+<Value name="1">
+<Value>Id</Value>
+</Value>
+<Value name="2">
+<Value>State</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

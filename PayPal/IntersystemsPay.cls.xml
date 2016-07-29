@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.IntersystemsPay">
+<Super>Ens.Production</Super>
+<TimeCreated>64127,58464.316592</TimeCreated>
+
+<XData name="ProductionDefinition">
+<Data><![CDATA[
+<Production Name="PayPal.IntersystemsPay" TestingEnabled="true" LogGeneralTraceEvents="false">
+  <Description></Description>
+  <ActorPoolSize>2</ActorPoolSize>
+  <Item Name="OAuthPay" Category="" ClassName="PayPal.Token" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="HTTPPort">443</Setting>
+    <Setting Target="Adapter" Name="HTTPServer">api.sandbox.paypal.com</Setting>
+    <Setting Target="Adapter" Name="URL">/v1/oauth2/token</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">PayPal</Setting>
+  </Item>
+  <Item Name="Execute" Category="" ClassName="PayPal.Execute" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="SSLConfig">PayPal</Setting>
+    <Setting Target="Adapter" Name="HTTPPort">443</Setting>
+    <Setting Target="Adapter" Name="HTTPServer">api.sandbox.paypal.com</Setting>
+    <Setting Target="Adapter" Name="URL">/v1/payments/payment/</Setting>
+  </Item>
+  <Item Name="Payment" Category="" ClassName="PayPal.Payment" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="HTTPPort">443</Setting>
+    <Setting Target="Adapter" Name="HTTPServer">api.sandbox.paypal.com</Setting>
+    <Setting Target="Adapter" Name="URL">/v1/payments/payment</Setting>
+    <Setting Target="Adapter" Name="SSLConfig">PayPal</Setting>
+  </Item>
+  <Item Name="ExecutePayment" Category="" ClassName="PayPal.ExecutePayment" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="GetLink" Category="" ClassName="PayPal.GetLink" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+  <Item Name="innerpayment" Category="" ClassName="PayPal.Web.Broker" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
+</Production>
+]]></Data>
+</XData>
+</Class>
+</Export>

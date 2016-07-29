@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Execute">
+<Super>EnsLib.REST.Operation</Super>
+<TimeCreated>64128,4900.473102</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="Execute">
+<FormalSpec>pRequest:PayPal.Message.ExecuteRequest,*pResponse:PayPal.Message.ExecuteResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set tURL = ..Adapter.URL_pRequest.PaymentId_"/execute/"
+		set oauth = "Bearer "_pRequest.AccessToken
+		set object = ##class(%Object).%New()
+		set object."payer_id" = pRequest.PayerId
+		set consumedJSON = object.$toJSON()
+		
+		set tHttpRequestIn = ##class(%Net.HttpRequest).%New()
+		set tHttpRequestIn.ContentType="application/json"
+      	set tHttpRequestIn.Port=..Adapter.HTTPPort
+     	set tHttpRequestIn.Server=..Adapter.HTTPServer
+     	set tHttpRequestIn.SSLConfiguration="PayPal"
+     	set tHttpRequestIn.Https = 1
+     	set tHttpRequestIn.ContentCharset="utf-8"
+     	do tHttpRequestIn.SetHeader("Authorization", oauth)
+     	
+     	set tSC = ..Adapter.SendFormDataURL(tURL, .tHttpResponse, "POST", tHttpRequestIn, , consumedJSON)
+     	If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+	     	Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+	     	}
+	    Quit:$$$ISERR(tSC)
+     	If $IsObject(tHttpResponse) {
+        	// Instantiate the response object
+        	set pResponse = ##class(PayPal.Message.ExecuteResponse).%New()
+        	// Convert JSON into a Proxy Cache Object
+         	set tSC = ..JSONStreamToObject(tHttpResponse.Data, .tProxy)
+         	if (tSC){
+	         	set pResponse.Id = tProxy.id
+	         	set pResponse.State = tProxy.state	         
+	         	}
+	        }
+	} catch {
+		set tSC = $$$SystemError
+	}
+	quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+  <MapItem MessageType="PayPal.Message.ExecuteRequest">
+    <Method>Execute</Method>
+  </MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+</Export>

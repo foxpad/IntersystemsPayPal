@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.RedirectUrls">
+<Super>%Persistent</Super>
+<TimeCreated>64128,405.071832</TimeCreated>
+
+<Property name="CancelUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Property name="ReturnUrl">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.RedirectUrlsD</DataLocation>
+<DefaultData>RedirectUrlsDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.RedirectUrlsD</IdLocation>
+<IndexLocation>^PayPal.Data.RedirectUrlsI</IndexLocation>
+<StreamLocation>^PayPal.Data.RedirectUrlsS</StreamLocation>
+<Data name="RedirectUrlsDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>CancelUrl</Value>
+</Value>
+<Value name="3">
+<Value>ReturnUrl</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

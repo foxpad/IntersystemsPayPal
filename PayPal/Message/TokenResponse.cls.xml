@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Message.TokenResponse">
+<Super>Ens.Response</Super>
+<TimeCreated>64127,57321.310017</TimeCreated>
+
+<Property name="AccessToken">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>TokenResponseDefaultData</DefaultData>
+<Data name="TokenResponseDefaultData">
+<Subscript>"TokenResponse"</Subscript>
+<Value name="1">
+<Value>AccessToken</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

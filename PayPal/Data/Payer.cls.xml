@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Payer">
+<Super>%Persistent</Super>
+<TimeCreated>64127,73724.054109</TimeCreated>
+
+<Property name="PaymentMethod">
+<Type>%String</Type>
+</Property>
+
+<Property name="Status">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.PayerD</DataLocation>
+<DefaultData>PayerDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.PayerD</IdLocation>
+<IndexLocation>^PayPal.Data.PayerI</IndexLocation>
+<StreamLocation>^PayPal.Data.PayerS</StreamLocation>
+<Data name="PayerDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>PaymentMethod</Value>
+</Value>
+<Value name="3">
+<Value>Status</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

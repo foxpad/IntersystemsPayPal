@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.GetLink">
+<Description>
+</Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeCreated>64128,1703.747179</TimeCreated>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='PayPal.Message.OrderRequest' response='PayPal.Message.OrderResponse' height='2000' width='2000' >
+<context>
+<property name='Token' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+<property name='url' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+</context>
+<sequence xend='200' yend='650' >
+<call name='Авторизация' target='OAuthPay' async='1' xpos='200' ypos='250' >
+<request type='PayPal.Message.TokenRequest' >
+<assign property="callrequest.ClientId" value="&quot;Aa34hRVd33prk4pURqtm6N9hkirAXIp8nPJ&quot;" action="set" />
+<assign property="callrequest.Secret" value="&quot;EMIK7NLqvHYzPM69DUgeMRMyZpm0jWkwedukWlbmF3&quot;" action="set" />
+</request>
+<response type='PayPal.Message.TokenResponse' >
+<assign property="context.Token" value="callresponse.AccessToken" action="set" />
+</response>
+</call>
+<sync calls='Авторизация' type='all' xpos='200' ypos='350' />
+<call name='URL' target='Payment' async='1' xpos='200' ypos='450' >
+<request type='PayPal.Message.OrderRequest' >
+<assign property="callrequest.AccessToken" value="context.Token" action="set" />
+<assign property="callrequest.Summ" value="request.Summ" action="set" />
+<assign property="callrequest.Organisation" value="request.Organisation" action="set" />
+</request>
+<response type='PayPal.Message.OrderResponse' >
+<assign property="context.url" value="callresponse.Url" action="set" />
+<assign property="response.Url" value="callresponse.Url" action="set" />
+</response>
+</call>
+<sync calls='URL' type='all' xpos='200' ypos='550' />
+</sequence>
+</process>
+]]></Data>
+</XData>
+</Class>
+</Export>

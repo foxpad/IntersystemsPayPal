@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Product">
+<Super>%Persistent</Super>
+<TimeCreated>64127,85151.047774</TimeCreated>
+
+<Property name="Name">
+<Type>%String</Type>
+</Property>
+
+<Property name="Cost">
+<Type>%String</Type>
+</Property>
+
+<Property name="Serial">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.ProductD</DataLocation>
+<DefaultData>ProductDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.ProductD</IdLocation>
+<IndexLocation>^PayPal.Data.ProductI</IndexLocation>
+<StreamLocation>^PayPal.Data.ProductS</StreamLocation>
+<Data name="ProductDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Name</Value>
+</Value>
+<Value name="3">
+<Value>Cost</Value>
+</Value>
+<Value name="4">
+<Value>Serial</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Card">
+<Super>%Persistent</Super>
+<TimeCreated>64127,70000.306364</TimeCreated>
+
+<Property name="Id">
+<Type>%String</Type>
+</Property>
+
+<Property name="State">
+<Type>%String</Type>
+</Property>
+
+<Property name="Payerid">
+<Type>%String</Type>
+</Property>
+
+<Property name="Type">
+<Type>%String</Type>
+</Property>
+
+<Property name="Number">
+<Type>%String</Type>
+</Property>
+
+<Property name="ExpireMonth">
+<Type>%String</Type>
+</Property>
+
+<Property name="ExpireYear">
+<Type>%String</Type>
+</Property>
+
+<Property name="FirstName">
+<Type>%String</Type>
+</Property>
+
+<Property name="LastName">
+<Type>%String</Type>
+</Property>
+
+<Property name="BillingAdress">
+<Type>PayPal.Data.Adress</Type>
+</Property>
+
+<Property name="ValidUntil">
+<Type>%String</Type>
+</Property>
+
+<Property name="CreateTime">
+<Type>%String</Type>
+</Property>
+
+<Property name="UpdateTime">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.CardD</DataLocation>
+<DefaultData>CardDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.CardD</IdLocation>
+<IndexLocation>^PayPal.Data.CardI</IndexLocation>
+<StreamLocation>^PayPal.Data.CardS</StreamLocation>
+<Data name="CardDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Id</Value>
+</Value>
+<Value name="3">
+<Value>State</Value>
+</Value>
+<Value name="4">
+<Value>Payerid</Value>
+</Value>
+<Value name="5">
+<Value>Type</Value>
+</Value>
+<Value name="6">
+<Value>Number</Value>
+</Value>
+<Value name="7">
+<Value>ExpireMonth</Value>
+</Value>
+<Value name="8">
+<Value>ExpireYear</Value>
+</Value>
+<Value name="9">
+<Value>FirstName</Value>
+</Value>
+<Value name="10">
+<Value>LastName</Value>
+</Value>
+<Value name="11">
+<Value>BillingAdress</Value>
+</Value>
+<Value name="12">
+<Value>ValidUntil</Value>
+</Value>
+<Value name="13">
+<Value>CreateTime</Value>
+</Value>
+<Value name="14">
+<Value>UpdateTime</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Message.OrderRequest">
+<Super>Ens.Request</Super>
+<TimeCreated>64127,85063.979943</TimeCreated>
+
+<Property name="Summ">
+<Type>%String</Type>
+</Property>
+
+<Property name="Organisation">
+<Type>%String</Type>
+</Property>
+
+<Property name="Items">
+<Type>%Array</Type>
+</Property>
+
+<Property name="AccessToken">
+<Type>%String</Type>
+<Parameter name="MAXLEN"/>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>OrderRequestDefaultData</DefaultData>
+<Data name="OrderRequestDefaultData">
+<Subscript>"OrderRequest"</Subscript>
+<Value name="1">
+<Value>Summ</Value>
+</Value>
+<Value name="2">
+<Value>Organisation</Value>
+</Value>
+<Value name="3">
+<Value>Items</Value>
+</Value>
+<Value name="4">
+<Value>AccessToken</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

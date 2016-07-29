@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Message.AccessTokenResponse">
+<Super>Ens.Response</Super>
+<TimeCreated>64127,70573.257986</TimeCreated>
+
+<Property name="CreditCards">
+<Type>PayPal.Data.CreditCards</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DefaultData>AccessTokenResponseDefaultData</DefaultData>
+<Data name="AccessTokenResponseDefaultData">
+<Structure>listnode</Structure>
+<Subscript>"AccessTokenResponse"</Subscript>
+<Value name="1">
+<Value>CreditCards</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

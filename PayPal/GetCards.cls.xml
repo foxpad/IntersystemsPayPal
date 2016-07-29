@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.GetCards">
+<Super>EnsLib.REST.Operation</Super>
+<TimeCreated>64127,69989.839319</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="GetCreditCards">
+<FormalSpec>pRequset:PayPal.Message.AccessTokenRequest,*pResponse:PayPal.Message.AccessTokenResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set tURL = ..Adapter.URL
+		set oauth = "Bearer "_pRequset.Token
+		
+		set tHttpRequestIn = ##class(%Net.HttpRequest).%New()
+		set tHttpRequestIn.ContentType="application/json"
+      	set tHttpRequestIn.Port=..Adapter.HTTPPort
+     	set tHttpRequestIn.Server=..Adapter.HTTPServer
+     	set tHttpRequestIn.SSLConfiguration="PayPal"
+     	set tHttpRequestIn.Https = 1
+     	set tHttpRequestIn.ContentCharset="utf-8"
+     	do tHttpRequestIn.SetHeader("Authorization", oauth)
+     	
+     	set tSC = tHttpRequestIn.Get(tURL)
+     	set tHttpResponse = tHttpRequestIn.HttpResponse
+     	//set tSC = ..Adapter.SendFormDataURL(tURL, .tHttpResponse, "POST", tHttpRequestIn, , )
+     	If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+	     	Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+	     	}
+	    Quit:$$$ISERR(tSC)
+     	If $IsObject(tHttpResponse) {
+        	// Instantiate the response object
+        	set pResponse = ##class(PayPal.Message.AccessTokenResponse).%New()
+        	// Convert JSON into a Proxy Cache Object
+         	set tSC = ..JSONStreamToObject(tHttpResponse.Data, .tProxy)
+         	if (tSC){
+		        set creditCards = ##class(PayPal.Data.CreditCards).%New()
+	         	for i=1:1:tProxy.items.Count() {
+		         	do creditCards.CreditCards.Insert(..Transform(tProxy.items.GetAt(i)))
+	         	}
+	         	set pResponse.CreditCards = creditCards
+	        }
+	    }
+	} catch {
+		set tSC = $$$SystemError
+	}
+	quit tSC
+]]></Implementation>
+</Method>
+
+<Method name="Transform">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>tProxy:%ZEN.proxyObject</FormalSpec>
+<ReturnType>PayPal.Data.Card</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set card = ##class(PayPal.Data.Card).%New()
+		set card.Id = tProxy.id
+		set card.State = tProxy.state
+		set card.Payerid = tProxy."payer_id"
+		set card.Type = tProxy.type
+		set card.Number = tProxy.number
+		set card.ExpireMonth = tProxy."expire_month"
+		set card.ExpireYear = tProxy."expire_year"
+		set card.FirstName = tProxy."first_name"
+		set card.LastName = tProxy."last_name"
+		set card.BillingAdress = ##class(PayPal.Data.Adress).%New()
+		set card.BillingAdress.Line1 = tProxy."billing_address".line1
+		set card.BillingAdress.City = tProxy."billing_address".city
+		set card.BillingAdress.State = tProxy."billing_address".state
+		set card.BillingAdress.PostalCode = tProxy."billing_address"."postal_code"
+		set card.BillingAdress.CountryCode = tProxy."billing_address"."country_code"
+		set card.ValidUntil = tProxy."valid_until"
+		set card.CreateTime = tProxy."create_time"
+		set card.UpdateTime = tProxy."update_time"
+	}
+	catch { 
+			set card = ""
+	}
+	return card
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+  <MapItem MessageType="PayPal.Message.AccessTokenRequest">
+    <Method>GetCreditCards</Method>
+  </MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+</Export>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Amount">
+<Super>%Persistent</Super>
+<TimeCreated>64127,74221.690736</TimeCreated>
+
+<Property name="Currency">
+<Type>%String</Type>
+</Property>
+
+<Property name="Total">
+<Type>%String</Type>
+</Property>
+
+<Property name="Details">
+<Type>PayPal.Data.Details</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.AmountD</DataLocation>
+<DefaultData>AmountDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.AmountD</IdLocation>
+<IndexLocation>^PayPal.Data.AmountI</IndexLocation>
+<StreamLocation>^PayPal.Data.AmountS</StreamLocation>
+<Data name="AmountDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Currency</Value>
+</Value>
+<Value name="3">
+<Value>Total</Value>
+</Value>
+<Value name="4">
+<Value>Details</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

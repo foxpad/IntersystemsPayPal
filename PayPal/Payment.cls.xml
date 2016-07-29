@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Payment">
+<Super>EnsLib.REST.Operation</Super>
+<TimeCreated>64128,3038.04865</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="Redirect">
+<FormalSpec>pRequset:PayPal.Message.OrderRequest,*pResponse:PayPal.Message.OrderResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	try {
+		set tURL = ..Adapter.URL
+		set oauth = "Bearer "_pRequset.AccessToken
+		
+		set object = ##class(%Object).%New()
+		set object.transactions = ##class(%Array).%New()
+		set amount = ##class(%Object).%New()
+		set amount.currency = "RUB"
+		set amount.total = pRequset.Summ
+		set description = pRequset.Organisation_"на сумму "_pRequset.Summ
+		set amountObject = ##class(%Object).%New()
+		set amountObject.amount = amount
+		set amountObject.description = description
+		do object.transactions.$push(amountObject)
+		set object.payer = ##class(%Object).%New()
+		set object.payer."payment_method" = "paypal"
+		set object.intent = "sale"
+		set object."redirect_urls" = ##class(%Object).%New()
+		set cURL = "http://localhost:57773/paypal/rest/innerpayment/pay/commit?success=false"
+		set rURL = "http://localhost:57773/paypal/rest/innerpayment/pay/commit?success=true"
+		set object."redirect_urls"."cancel_url" = cURL
+		set object."redirect_urls"."return_url" = rURL
+		set consumedJSON = object.$toJSON()
+		
+		set tHttpRequestIn = ##class(%Net.HttpRequest).%New()
+		set tHttpRequestIn.ContentType="application/json"
+      	set tHttpRequestIn.Port=..Adapter.HTTPPort
+     	set tHttpRequestIn.Server=..Adapter.HTTPServer
+     	set tHttpRequestIn.SSLConfiguration="PayPal"
+     	set tHttpRequestIn.Https = 1
+     	set tHttpRequestIn.ContentCharset="utf-8"
+     	do tHttpRequestIn.SetHeader("Authorization", oauth)
+     	
+     	//set tSC = tHttpRequestIn.Post(tURL)
+     	//set tHttpResponse = tHttpRequestIn.HttpResponse
+     	set tSC = ..Adapter.SendFormDataURL(tURL, .tHttpResponse, "POST", tHttpRequestIn, , consumedJSON)
+     	If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+	     	Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+	     	}
+	    Quit:$$$ISERR(tSC)
+     	If $IsObject(tHttpResponse) {
+        	// Instantiate the response object
+        	set pResponse = ##class(PayPal.Message.OrderResponse).%New()
+        	// Convert JSON into a Proxy Cache Object
+         	set tSC = ..JSONStreamToObject(tHttpResponse.Data, .tProxy)
+         	if (tSC){
+	         	for i=1:1:tProxy.links.Count() {
+		         	if (tProxy.links.GetAt(i).rel = "approval_url") {
+			         	set pResponse.Url = tProxy.links.GetAt(i).href
+		         	}
+	         	}
+	        }
+	    }
+	} catch {
+		set tSC = $$$SystemError
+	}
+	quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+  <MapItem MessageType="PayPal.Message.OrderRequest">
+    <Method>Redirect</Method>
+  </MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+</Export>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Intent">
+<Super>%Persistent</Super>
+<TimeCreated>64128,699.74459</TimeCreated>
+
+<Property name="Intent">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.IntentD</DataLocation>
+<DefaultData>IntentDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.IntentD</IdLocation>
+<IndexLocation>^PayPal.Data.IntentI</IndexLocation>
+<StreamLocation>^PayPal.Data.IntentS</StreamLocation>
+<Data name="IntentDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Intent</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

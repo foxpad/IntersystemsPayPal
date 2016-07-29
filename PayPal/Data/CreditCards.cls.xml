@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.CreditCards">
+<Super>%Persistent</Super>
+<TimeCreated>64127,70389.966412</TimeCreated>
+
+<Property name="CreditCards">
+<Type>%ListOfObjects</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.CreditCardsD</DataLocation>
+<DefaultData>CreditCardsDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.CreditCardsD</IdLocation>
+<IndexLocation>^PayPal.Data.CreditCardsI</IndexLocation>
+<StreamLocation>^PayPal.Data.CreditCardsS</StreamLocation>
+<Data name="CreditCardsDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>CreditCards</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

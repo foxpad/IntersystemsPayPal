@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Data.Details">
+<Super>%Persistent</Super>
+<TimeCreated>64127,74382.104729</TimeCreated>
+
+<Property name="Subtotal">
+<Type>%String</Type>
+</Property>
+
+<Property name="Shipping">
+<Type>%String</Type>
+</Property>
+
+<Property name="Tax">
+<Type>%String</Type>
+</Property>
+
+<Property name="Handlingfee">
+<Type>%String</Type>
+</Property>
+
+<Property name="ShippingDiscount">
+<Type>%String</Type>
+</Property>
+
+<Property name="Insurance">
+<Type>%String</Type>
+</Property>
+
+<Property name="GiftWrap">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^PayPal.Data.DetailsD</DataLocation>
+<DefaultData>DetailsDefaultData</DefaultData>
+<IdLocation>^PayPal.Data.DetailsD</IdLocation>
+<IndexLocation>^PayPal.Data.DetailsI</IndexLocation>
+<StreamLocation>^PayPal.Data.DetailsS</StreamLocation>
+<Data name="DetailsDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Subtotal</Value>
+</Value>
+<Value name="3">
+<Value>Shipping</Value>
+</Value>
+<Value name="4">
+<Value>Tax</Value>
+</Value>
+<Value name="5">
+<Value>Handlingfee</Value>
+</Value>
+<Value name="6">
+<Value>ShippingDiscount</Value>
+</Value>
+<Value name="7">
+<Value>Insurance</Value>
+</Value>
+<Value name="8">
+<Value>GiftWrap</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>

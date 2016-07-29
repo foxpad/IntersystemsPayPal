@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.Web.Broker">
+<Super>EnsLib.REST.Service</Super>
+<TimeCreated>64127,84903.911865</TimeCreated>
+
+<Parameter name="UseSession">
+<Type>Integer</Type>
+<Default>1</Default>
+</Parameter>
+
+<Parameter name="ADAPTER">
+<Default>EnsLib.HTTP.InboundAdapter</Default>
+</Parameter>
+
+<Parameter name="EnsServicePrefix">
+<Default>|pay</Default>
+</Parameter>
+
+<XData name="UrlMap">
+<XMLNamespace>http://www.intersystems.com/urlmap</XMLNamespace>
+<Data><![CDATA[
+<Routes>
+ <Route Url="/start" Method="POST" Call="PostStartPayment"/>
+ <Route Url="/commit" Method="GET" Call="PostCommitPayment"/>
+ <Route Url="/test" Method="GET" Call="Test"/>
+</Routes>
+]]></Data>
+</XData>
+
+<Method name="Test">
+<FormalSpec>pInput:%Library.AbstractStream,*pOutput:%Stream.Object</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	d pOutput.Write("{""Status"": ""Оки доки"",""Message"":""АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ_абвгдежзийклмнопрстуфхцчшщъыьэюя""}")
+    Quit $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="PostStartPayment">
+<FormalSpec>pInput:%Library.AbstractStream,*pOutput:%Stream.Object</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	Set tSC=..JSONStreamToObject(pInput,.tProxy) Quit:$$$ISERR(tSC) tSC
+	
+	Set tInner = ##class(PayPal.Message.OrderRequest).%New()
+	Set tInner.Summ=$ZCVT(tProxy.summ,"I","UTF8")
+	Set tInner.Items=##class(%ListOfObjects).%New()
+	Set tInner.Organisation=$ZCVT(tProxy.organisation,"I","UTF8")
+
+	for i=1:1:tProxy.items.Count()
+	{
+		s obj=tProxy.items.GetAt(i)
+		s prod=##class(PayPal.Data.Product).%New()
+		s prod.Name=$ZCVT(obj.name,"I","UTF8")
+		s prod.Cost=$ZCVT(obj.cost,"I","UTF8")
+		s prod.Serial=$ZCVT(obj.serial,"I","UTF8")
+		d tInner.Items.Insert(prod)
+	}
+	//set tSC = ..SendRequestAsync("IntersystemsPay",tInner) 
+	set tSC = ..SendRequestSync("GetLink",tInner, .resp,-1)
+	d pOutput.Write(resp.Url)
+    return $$$OK
+]]></Implementation>
+</Method>
+
+<Method name="PostCommitPayment">
+<FormalSpec>pInput:%Library.AbstractStream,*pOutput:%Stream.Object</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+	d pOutput.Write("Платеж "_%request.Get("paymentId")_" успешно проведен")
+	Set tInner = ##class(PayPal.Message.ExecuteRequest).%New()
+	set tInner.PayerId=%request.Get("PayerID")
+	set tInner.PaymentId=%request.Get("paymentId")
+	set tInner.Token=%request.Get("token")
+	set tSC = ..SendRequestAsync("ExecutePayment",tInner)
+    return $$$OK
+]]></Implementation>
+</Method>
+</Class>
+</Export>

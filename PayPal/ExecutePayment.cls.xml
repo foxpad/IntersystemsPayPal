@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.ExecutePayment">
+<Description>
+</Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeCreated>64128,8981.006064</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='PayPal.Message.ExecuteRequest' response='Ens.Response' height='2000' width='2000' >
+<sequence xend='220' yend='447' >
+<call name='Авторизация' target='OAuthPay' async='1' xpos='373' ypos='172' >
+<request type='PayPal.Message.TokenRequest' />
+<response type='PayPal.Message.TokenResponse' >
+<assign property="request.AccessToken" value="callresponse.AccessToken" action="set" />
+</response>
+</call>
+<sync calls='Авторизация' type='all' xpos='657' ypos='265' />
+<call name='Исполнение' target='Execute' async='1' xpos='247' ypos='361' >
+<request type='PayPal.Message.ExecuteRequest' >
+<assign property="callrequest.Token" value="request.Token" action="set" />
+<assign property="callrequest.PayerId" value="request.PayerId" action="set" />
+<assign property="callrequest.PaymentId" value="request.PaymentId" action="set" />
+<assign property="callrequest.AccessToken" value="request.AccessToken" action="set" />
+</request>
+<response type='PayPal.Message.ExecuteResponse' />
+</call>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+</Export>

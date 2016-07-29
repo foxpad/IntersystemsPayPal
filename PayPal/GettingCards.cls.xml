@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25">
+<Class name="PayPal.GettingCards">
+<Description>
+</Description>
+<Super>Ens.BusinessProcessBPL</Super>
+<TimeCreated>64127,72592.694355</TimeCreated>
+
+<XData name="BPL">
+<Description>
+BPL Definition</Description>
+<XMLNamespace>http://www.intersystems.com/bpl</XMLNamespace>
+<Data><![CDATA[
+<process language='objectscript' request='PayPal.Message.TokenRequest' response='Ens.Response' height='2000' width='2000' >
+<context>
+<property name='cards' type='PayPal.Data.CreditCards' instantiate='0' />
+<property name='AccessToken' type='%String' instantiate='0' >
+<parameters>
+<parameter name='MAXLEN'  value='' />
+</parameters>
+</property>
+</context>
+<sequence xend='191' yend='469' >
+<call name='Oauth' target='OAuthPay' async='1' xpos='201' ypos='251' >
+<request type='PayPal.Message.TokenRequest' >
+<assign property="callrequest.ClientId" value="request.ClientId" action="set" />
+<assign property="callrequest.Secret" value="request.Secret" action="set" />
+</request>
+<response type='PayPal.Message.TokenResponse' >
+<assign property="context.AccessToken" value="callresponse.AccessToken" action="set" />
+</response>
+</call>
+<sync calls='Oauth' type='all' xpos='601' ypos='292' />
+<call name='Getting' target='GetCardsList' async='1' xpos='175' ypos='359' >
+<request type='PayPal.Message.AccessTokenRequest' >
+<assign property="callrequest.Token" value="context.AccessToken" action="set" />
+</request>
+<response type='PayPal.Message.AccessTokenResponse' >
+<assign property="context.cards" value="callresponse" action="set" />
+</response>
+</call>
+</sequence>
+</process>
+]]></Data>
+</XData>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+</Storage>
+</Class>
+</Export>
